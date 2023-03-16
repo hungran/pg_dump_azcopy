@@ -3,8 +3,8 @@ name: Build action
 on:
   workflow_dispatch:
   push:
-  schedule:
-    - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
+#   schedule:
+#     - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
