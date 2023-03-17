@@ -42,7 +42,7 @@ jobs:
       
       - uses: chainguard-dev/actions/melange-build@main
         with:
-          config: azure-storage-azcopy.melange.yaml
+          config: azcopy.melange.yaml
           sign-with-temporary-key: true
           # archs: x86_64,aarch64
           archs: x86_64
