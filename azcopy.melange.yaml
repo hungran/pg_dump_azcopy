@@ -1,0 +1,44 @@
+package:
+  name: azcopy-postgres
+  version: "10.17.0"
+  epoch: 0
+  description: tool azcopy and postgress client
+  target-architecture:
+    - x86_64
+environment:
+  contents:
+    repositories:
+      - https://dl-cdn.alpinelinux.org/alpine/edge/main
+      - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    packages:
+      - alpine-baselayout
+      - busybox
+      - ca-certificates-bundle
+      - build-base
+      - bash
+      - openssh 
+      - openssl
+      - openssl-dev
+      - go
+      - libffi
+      - libc6-compat
+      - make
+      - linux-headers
+      - wget
+      - postgresql-client
+pipeline:
+  - uses: fetch
+    with:
+      expected-sha256: f970ad5a68fb0a84935bedc687a6ed8a9d051791e61b032a433ff1cf0ac38105
+      uri: https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v${{package.version}}.tar.gz
+      extract: true 
+
+
+  - name: Build
+    runs: |
+      tar -xvzf v${{package.version}}.tar.gz
+      cd azure-storage-azcopy-${{package.version}}
+      go build
+      mkdir -p ${{targets.destdir}}/usr/local/bin
+      mv ./azure-storage-azcopy "${{targets.destdir}}"/usr/local/bin/azcopy
+      chmod +x ${{targets.destdir}}/usr/local/bin/azcopy
