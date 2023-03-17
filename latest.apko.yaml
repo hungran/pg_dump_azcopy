@@ -3,13 +3,13 @@ contents:
     - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
   repositories:
     - https://packages.wolfi.dev/os
-    - packages
+    - '@local ./packages'
   packages:
     - wolfi-baselayout
     - busybox
-    - glibc
-    - bash
-    - azcopy-postgres
+    - azure-storage-azcopy@local
+    - postgresql-15-client
+    - libpq-15 # need to fix this upstream maybe??
 
 accounts:
   groups:
@@ -21,8 +21,10 @@ accounts:
       gid: 65532
   run-as: 65532
 
-# entrypoint:
-#   command: /usr/local/bin/hello
+entrypoint:
+  command: /usr/local/bin/azure-storage-azcopy
+cmd: --help
 
 archs:
-- x86_64
+- amd64
+# - arm64

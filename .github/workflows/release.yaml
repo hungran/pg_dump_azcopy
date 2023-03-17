@@ -3,8 +3,8 @@ name: Build action
 on:
   workflow_dispatch:
   push:
-#   schedule:
-#     - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
+  schedule:
+    - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
 
 concurrency: 
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -42,8 +42,9 @@ jobs:
       
       - uses: chainguard-dev/actions/melange-build@main
         with:
-          config: azcopy.melange.yaml
+          config: azure-storage-azcopy.melange.yaml
           sign-with-temporary-key: true
+          # archs: x86_64,aarch64
           archs: x86_64
 
       - uses: chainguard-images/actions/apko-publish@e61cb0631c83e84cadc21337be090ad06bf05da2

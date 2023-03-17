@@ -1,89 +1,32 @@
 package:
-  name: azcopy-postgres
-  version: "10.17.0"
+  name: azure-storage-azcopy
+  version: 10.17.0
   epoch: 0
-  description: tool azcopy and postgres client
+  description: The new Azure Storage data transfer utility - AzCopy v10
   target-architecture:
-    - x86_64
+    - all
+  copyright:
+    - paths:
+        - "*"
+      attestation: TODO
+      license: MIT
+
 environment:
   contents:
-    repositories:
-      - https://dl-cdn.alpinelinux.org/alpine/edge/main
-      - https://dl-cdn.alpinelinux.org/alpine/edge/community
-      - https://packages.wolfi.dev/bootstrap/stage3
-      - https://packages.wolfi.dev/os
-    keyring: 
-      - https://packages.wolfi.dev/bootstrap/stage3/wolfi-signing.rsa.pub
+    keyring:
       - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
     packages:
-      # - wolfi-baselayout
-      - busybox
       - ca-certificates-bundle
-      - build-base
-      - bash
-      - openssh 
-      - openssl
-      - openssl-dev
+      - busybox
       - go
-      # - libffi
-      # - libc6-compat
-      # - musl
-      # - libc-dev
-      # - make
-      # - linux-headers
-      - wget
-      - curl
-      - automake
-      - autoconf
-      - openssl-dev
-      - libedit-dev
-      - zlib-dev
-      - libxml2-dev
-      - bison
-      - flex
-      - execline-dev
-      - util-linux-dev
 pipeline:
-# Postgresql client
-  - uses: fetch
-    with:
-      expected-sha256: 13109e2b71f1139405c27201da3733a61ace72ee1c228d9c9f0320e06aee14c2
-      uri: https://ftp.postgresql.org/pub/source/v11.19/postgresql-11.19.tar.bz2
-  - uses: autoconf/configure
-    with:
-      opts: |
-        --mandir=/usr/share/man \
-        --with-openssl \
-        --with-libedit-preferred
-  # --with-uuid=e2fs requores util-linux, let's avoid this package for now
-  # MAKELEVEL=0 is used because of a postgresql build system bug:
-  # https://www.postgresql.org/message-id/15407-7b64e5de97dedc5e%40postgresql.org
-  - uses: autoconf/make
-    with:
-      opts: MAKELEVEL=0
-  - uses: autoconf/make-install
-  - uses: strip
-
   - uses: fetch
     with:
       expected-sha256: f970ad5a68fb0a84935bedc687a6ed8a9d051791e61b032a433ff1cf0ac38105
       uri: https://github.com/Azure/azure-storage-azcopy/archive/refs/tags/v${{package.version}}.tar.gz
-      extract: true 
-
-
-  - name: Build
-    runs: |
-      tar -xvzf v${{package.version}}.tar.gz
-      cd azure-storage-azcopy-${{package.version}}
+  - runs: |
       go build
-      mkdir -p ${{targets.destdir}}/usr/local/bin
-      mv ./azure-storage-azcopy "${{targets.destdir}}"/usr/local/bin/azcopy
-      chmod +x ${{targets.destdir}}/usr/local/bin/azcopy
-
-subpackages:
-  - name: postgresql-11-client
-    description: PostgreSQL client
-    pipeline:
-      - runs: |
-          mkdir -p ${{targets.subpkgdir}}/usr/bin
-          mv ${{targets.destdir}}/usr/bin/psql ${{targets.subpkgdir}}/usr/bin/
+      install -D -m 0755 "./azure-storage-azcopy" -t "${{targets.destdir}}/usr/local/bin"
+  - uses: strip

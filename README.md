@@ -2,8 +2,8 @@
 
 
 docker run --privileged --rm -v "${PWD}":/work \
-  cgr.dev/chainguard/melange build melange.yaml \
-  --arch x86_64,amd64 \
+  cgr.dev/chainguard/melange build azcopy.melange.yaml \
+  --arch x86_64 \
   --signing-key melange.rsa
 
 docker run --rm -v ${PWD}:/work cgr.dev/chainguard/apko \
