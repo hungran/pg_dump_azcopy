@@ -13,7 +13,7 @@
 docker pull ghcr.io/hungran/pg_dump_azcopy:latest
 docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/bin/pg_dump --help
 docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/local/bin/azure-storage-azcopy --help
-docker run -it azcopy-postgres:test sh
+docker run -it ghcr.io/hungran/pg_dump_azcopy:latest sh
 ```
 ## DIY
 ### Build apk
