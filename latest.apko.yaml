@@ -8,7 +8,7 @@ contents:
     - wolfi-baselayout
     - busybox
     - azure-storage-azcopy@local
-    - postgresql-15-dev
+    - postgresql-15-dev # included pg_dump
     - libpq-15 # need to fix this upstream maybe??
 
 accounts:
@@ -27,4 +27,4 @@ accounts:
 
 archs:
 - x86_64
-- aarch64
+# - aarch64
