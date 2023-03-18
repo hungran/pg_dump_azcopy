@@ -2,12 +2,17 @@
 
 # OCI Image included postgres-15-dev and azcopy which built from source by melange and apko
 
+<img width="901" alt="image" src="https://user-images.githubusercontent.com/26101787/226110778-db53f139-64dc-459f-9b00-97a9e735e9e7.png">
+<img width="956" alt="image" src="https://user-images.githubusercontent.com/26101787/226110804-0104eea0-c92c-4f3f-bb70-10fb8b3b21df.png">
+<img width="636" alt="image" src="https://user-images.githubusercontent.com/26101787/226110842-c52581b0-fcaa-49d2-b291-9bf6ef8f7997.png">
+
+
 ## Usage
 
 ```
 docker pull ghcr.io/hungran/pg_dump_azcopy:latest
-docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/bin/pg_dump ...
-docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/local/bin/azure-storage-azcopy ...
+docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/bin/pg_dump --help
+docker run -it ghcr.io/hungran/pg_dump_azcopy:latest /usr/local/bin/azure-storage-azcopy --help
 docker run -it azcopy-postgres:test sh
 ```
 ## DIY
