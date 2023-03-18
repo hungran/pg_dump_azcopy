@@ -8,7 +8,7 @@ contents:
     - wolfi-baselayout
     - busybox
     - azure-storage-azcopy@local
-    - postgresql-15-client
+    - postgresql-15-dev
     - libpq-15 # need to fix this upstream maybe??
 
 accounts:
@@ -21,9 +21,9 @@ accounts:
       gid: 65532
   run-as: 65532
 
-entrypoint:
-  command: /usr/local/bin/azure-storage-azcopy
-cmd: --help
+# entrypoint:
+#   command: /usr/local/bin/azure-storage-azcopy
+# cmd: --help
 
 archs:
 - x86_64
