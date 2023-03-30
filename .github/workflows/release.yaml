@@ -7,8 +7,8 @@ on:
       - azcopy.melange.yaml
       - latest.apko.yaml
       - .github/workflows/release.yaml
-  # schedule:
-  #   - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
+  schedule:
+    - cron: '15 3 * * *'  # every day at 03:15 (just wanted to avoid midnight)
 
 
 concurrency: 
