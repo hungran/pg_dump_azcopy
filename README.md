@@ -29,6 +29,13 @@ docker run --rm -v ${PWD}:/work cgr.dev/chainguard/apko \
   build latest.apko.yaml azcopy-postgres:test azcopy-postgres.tar \
   -k melange.rsa.pub
 ```  
+
+### alternative: build by chainguard sdk
+
+```bash
+docker run --privileged --rm -it -v "${PWD}:${PWD}" -w "${PWD}" cgr.dev/chainguard/sdk
+```
+
 ### Load Image
 ```sh
 docker load < azcopy-postgres.tar
